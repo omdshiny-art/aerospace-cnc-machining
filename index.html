@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Machining in the Aerospace Sector | Precision Manufacturing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 核心变量设计 --- */
+        :root {
+            --bg-dark: #060913;          /* 深邃太空格子底色 */
+            --bg-card: rgba(15, 23, 42, 0.65); /* 带有透明度的毛玻璃卡片基底 */
+            --cyan-glow: #00f2fe;        /* 激光青 */
+            --blue-glow: #4facfe;        /* 科技蓝 */
+            --text-white: #f8fafc;       /* 纯净白 */
+            --text-gray: #94a3b8;        /* 高级灰 */
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --border-hover: rgba(0, 242, 254, 0.4);
+            
+            /* 改良后的高级暖色调（替代刺眼红） */
+            --amber-warm: #ffb923;       /* 琥珀金 */
+            --bg-limit: rgba(25, 20, 15, 0.45); /* 柔和暗金底色 */
+            --border-limit: rgba(255, 185, 35, 0.15);
+            --border-limit-hover: rgba(255, 185, 35, 0.4);
+        }
+
+        /* --- 全局重置与基础背景 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.7;
+        }
+
+        body {
+            overflow-x: hidden;
+            /* 宇宙微弱星光纹理背景 */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.02) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* 区块标题 */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 30%, var(--cyan-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+
+        .text-center { text-align: center; }
+
+        /* 区块环境色过渡 */
+        .bg-light { 
+            background: linear-gradient(180deg, rgba(6,9,19,0) 0%, rgba(10,25,47,0.4) 50%, rgba(6,9,19,0) 100%);
+        }
+        .bg-dark {
+            background: rgba(4, 7, 13, 0.9);
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            background: rgba(6, 9, 19, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-white);
+            text-decoration: none;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--blue-glow), var(--cyan-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- 按钮 --- */
+        .cta-btn {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            padding: 14px 32px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #060913;
+            background: linear-gradient(135deg, var(--blue-glow), var(--cyan-glow));
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.7);
+            opacity: 0.95;
+        }
+
+        .cta-btn.btn-secondary {
+            background: transparent;
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.1);
+        }
+
+        .cta-btn.btn-secondary:hover {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--text-white);
+        }
+
+        .sm-btn {
+            padding: 8px 20px;
+            font-size: 11px;
+        }
+
+        /* --- 英雄视觉区（Hero Section） --- */
+        .hero-section {
+            padding: 160px 0 120px 0;
+            background: radial-gradient(circle at 80% 20%, rgba(79, 172, 254, 0.15), transparent 40%), 
+                        radial-gradient(circle at 10% 80%, rgba(0, 242, 254, 0.1), transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc, var(--cyan-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--cyan-glow);
+            margin-bottom: 35px;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .hero-lead {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 45px;
+        }
+
+        /* --- 页面标准布局网格 --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+        p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        strong {
+            color: var(--text-white);
+        }
+
+        /* --- 工艺列表卡片 --- */
+        .tech-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 24px;
+            border-radius: 8px;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: var(--border-hover);
+            background: rgba(15, 23, 42, 0.8);
+            transform: translateX(5px);
+        }
+
+        .tech-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            color: var(--cyan-glow);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .tech-item p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* --- 行业转型：卡片矩阵 --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 40px 24px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.1);
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            background: linear-gradient(135deg, rgba(0,242,254,0.4), rgba(0,242,254,0.05));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-white);
+        }
+
+        .card p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* --- 应用表格：现代暗色极简设计 --- */
+        .table-responsive {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .app-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .app-table th, .app-table td {
+            padding: 20px 24px;
+            font-size: 15px;
+        }
+
+        .app-table th {
+            background: rgba(15, 23, 42, 0.9);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: var(--cyan-glow);
+            border-bottom: 2px solid var(--border-glow);
+            text-transform: uppercase;
+        }
+
+        .app-table td {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-gray);
+        }
+
+        .app-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .app-table tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-white);
+        }
+
+        .fw-bold {
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        /* --- 局限性分析（已改良为舒缓的琥珀金/钛金工业质感） --- */
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-top: -30px;
+            margin-bottom: 60px;
+        }
+
+        .limit-box {
+            background: var(--bg-limit);
+            border: 1px solid var(--border-limit);
+            padding: 35px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .limit-box:hover {
+            border-color: var(--border-limit-hover);
+            background: rgba(35, 28, 20, 0.6);
+            box-shadow: 0 4px 20px rgba(255, 185, 35, 0.05);
+        }
+
+        .limit-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--amber-warm);
+            font-size: 18px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .solution {
+            margin-top: 20px;
+            background: rgba(0, 242, 254, 0.06);
+            border-left: 3px solid var(--cyan-glow);
+            padding: 12px 20px;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+            color: #e2f8ff;
+            margin-bottom: 0;
+        }
+
+        .solution strong {
+            color: var(--cyan-glow);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* --- 未来展望 --- */
+        .future-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .future-card:hover {
+            border-color: var(--blue-glow);
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .future-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            margin-bottom: 15px;
+            color: var(--blue-glow);
+            letter-spacing: 1px;
+        }
+
+        /* --- 转换区与页脚 --- */
+        .cta-section {
+            background: radial-gradient(circle at 50% 50%, rgba(79, 172, 254, 0.1), transparent 60%);
+            border-top: 1px solid var(--border-glow);
+            padding: 120px 0;
+        }
+
+        .cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 38px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--blue-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-section p {
+            max-width: 750px;
+            margin: 0 auto 40px auto;
+            font-size: 16px;
+            color: var(--text-gray);
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer {
+            background-color: #03050a;
+            color: #475569;
+            padding: 40px 0;
+            font-size: 13px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            letter-spacing: 1px;
+        }
+
+        /* --- 移动端响应式断点优化 --- */
+        @media (max-width: 1024px) {
+            .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero-section { padding: 120px 0 80px 0; }
+            .hero-section h1 { font-size: 36px; }
+            .section-title { font-size: 26px; }
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">MS <span>Machining</span></a>
+            <a href="#contact" class="cta-btn sm-btn">Request Quote</a>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-content">
+            <h1>CNC Machining in the Aerospace Sector</h1>
+            <p class="subtitle">Precision Engineering for Next-Gen Flight</p>
+            <p class="hero-lead">In aerospace and aviation manufacturing, there is absolutely zero margin for error. As the aerospace sector pushes the boundaries of aerodynamics, commercial efficiency, and defense capabilities, <strong>Computer Numerical Control (CNC) machining remains the bedrock of structural integrity and component innovation.</strong> From ultra-lightweight structural frames to complex, high-temperature engine geometries, advanced CNC machining delivers the unparalleled precision, reliability, and material versatility required to bring next-generation aerospace concepts to life.</p>
+            <div class="hero-ctas">
+                <a href="https://ms-machining.com/contact-us/" class="cta-btn" target="_blank" rel="noopener">Find a CNC Machining Service</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">What is Aerospace CNC Machining?</h2>
+            <div class="grid-2">
+                <div>
+                    <p>Aerospace CNC machining is a highly regulated, computer-controlled subtractive manufacturing process that carves, drills, and shapes raw material into flight-ready components based on precise CAD/CAM models.</p>
+                    <p>Unlike standard commercial machining, aerospace manufacturing demands micro-tolerances (often down to <strong>&plusmn;0.0025 mm</strong> or less), stringent material traceability, and adherence to strict international quality standards such as <strong>AS9100</strong> and <strong>ISO 9001</strong>.</p>
+                    <p>The modern aerospace CNC portfolio encompasses a multi-disciplinary suite of subtractive technologies:</p>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <h4><a href="https://ms-machining.com/5-axis-machining-services/" class="cta-btn" target="_blank" rel="noopener">Multi-Axis Milling (5-Axis & Multi-Tasking)</a></h4>
+                        <p>Allows the cutting tool to approach a part from five different axes simultaneously, critical for complex aerodynamic surfaces without repositioning.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>Precision CNC Turning & Swiss Machining</h4>
+                        <p>Ideal for high-concentricity, cylindrical fasteners, shafts, and sensor housings.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>High-Speed Drilling & Routing</h4>
+                        <p>Optimized for large-scale fuselage panels, wing spars, and composite trimming.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title text-center">How CNC Machining Has Transformed Aerospace Manufacturing</h2>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-icon">01</div>
+                    <h3>Micro-Tolerances at Scale</h3>
+                    <p>Modern aerospace systems require flawless execution. CNC machining guarantees extreme dimensional accuracy across critical systems like turbine assemblies and landing gear. By eliminating human error from the cutting path, manufacturers achieve identical part-to-part consistency across high-volume production runs.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">02</div>
+                    <h3>Geometrical Freedom</h3>
+                    <p>Aerospace design thrives on "lightweighting"—reducing the weight of a part without compromising its structural yield strength. Multi-axis CNC machines allow engineers to design intricate "pocketing" structures, organic weight-reduction lattices, and thin-walled bulkheads that were previously impossible to manufacture.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">03</div>
+                    <h3>Rapid Design Iteration</h3>
+                    <p>With digital CAD-to-code workflows, aerospace engineers can modify a digital design, update the CAM toolpath, and mill a new functional prototype within hours. This agility slashes the time-to-market for defense contracts, space exploration hardware, and commercial aircraft testing.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">04</div>
+                    <h3>Long-Term Cost Efficiencies</h3>
+                    <p>By eliminating the need for expensive, dedicated hard-tooling, jigs, and casting molds for every design iteration, CNC machining slashes upfront capital expenditure. Advanced nested toolpaths optimize raw material layouts, which drastically reduces scrap rates when working with high-cost exotic metals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Critical Applications in the Aerospace Sector</h2>
+            <div class="table-responsive">
+                <table class="app-table">
+                    <thead>
+                        <tr>
+                            <th>Subsystem Component</th>
+                            <th>Common CNC Materials Used</th>
+                            <th>Key Machining Requirements</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">Turbine Engines & Propulsion</td>
+                            <td>Titanium, Inconel, Nimonic alloys</td>
+                            <td>Extreme thermal resistance, micro-surface finishes, intricate cooling channels.</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Structural & Airframe Parts</td>
+                            <td>Aluminum 7075, Carbon Fiber, Titanium</td>
+                            <td>High strength-to-weight ratio, massive deep-pocketing, tight geometric alignment.</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Avionics & Sensor Enclosures</td>
+                            <td>Aluminum 6061, Engineering Plastics</td>
+                            <td>Electromagnetic interference (EMI) shielding, precise O-ring grooves, micro-cutouts.</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Interior Cabin Configurations</td>
+                            <td>Lightweight Polymers, Aerospace-grade Aluminum</td>
+                            <td>Aesthetic finishes, flame-retardant material processing, rapid customizable batches.</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Maintenance, Repair & Overhaul (MRO)</td>
+                            <td>Various (Matched to OEM spec)</td>
+                            <td>Reverse-engineering, precise re-machining of worn components to original tolerances.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Overcoming the Boundaries and Limitations of the Process</h2>
+            <p class="section-subtitle">While CNC machining is highly versatile, operating at the cutting edge of aerospace engineering requires acknowledging and mitigating its inherent constraints:</p>
+            <div class="grid-2">
+                <div class="limit-box">
+                    <h3>Tool Accessibility and Intricate Internal Cavities</h3>
+                    <p>Subtly curved internal channels or extreme undercuts can be inaccessible to physical cutting tools.</p>
+                    <div class="solution"><strong>SOLUTION:</strong> Engineers optimize designs using specialized 5-axis toolpaths or split-component assemblies.</div>
+                </div>
+                <div class="limit-box">
+                    <h3>The Challenge of Exotic Superalloys</h3>
+                    <p>Materials like Inconel and Titanium boast incredible heat resistance, which also makes them notoriously harsh on cutting tools, leading to rapid tool wear.</p>
+                    <div class="solution"><strong>SOLUTION:</strong> Employing advanced diamond or carbide tool coatings, high-pressure cryogenic cooling, and optimized feed rates.</div>
+                </div>
+                <div class="limit-box">
+                    <h3>High Initial Setup for Low Volumes</h3>
+                    <p>Programming complex 5-axis toolpaths and setting up customized workholding can be time-consuming for single-digit custom parts.</p>
+                    <div class="solution"><strong>SOLUTION:</strong> Integrating modular fixturing and utilizing rapid-turnaround digital prototyping workflows.</div>
+                </div>
+                <div class="limit-box">
+                    <h3>Post-Processing for Surface Integrity</h3>
+                    <p>Microscopic tool marks left behind during milling can act as stress-concentration points prone to fatigue.</p>
+                    <div class="solution"><strong>SOLUTION:</strong> Mandating secondary operations like automated bead blasting, anodizing, passivation, or precision grinding to meet exact surface roughness specifications (Ra).</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-dark text-white">
+        <div class="container">
+            <h2 class="section-title">The Flight Path Ahead: The Future of Aerospace CNC Machining</h2>
+            <div class="grid-3">
+                <div class="future-card">
+                    <h3>Digital Twins and AI-Powered Automation</h3>
+                    <p>The integration of Machine Learning (ML) algorithms allows modern CNC machines to monitor spindle vibration, acoustic emissions, and tool wear in real time. Predictive maintenance ensures the machine corrects its toolpaths autonomously before a defect can occur, moving the sector closer to a "zero-defect" manufacturing environment.</p>
+                </div>
+                <div class="future-card">
+                    <h3>Hybrid Manufacturing: Additive Meets Subtractive</h3>
+                    <p>Rather than viewing 3D printing as a competitor, the aerospace sector is embracing hybrid manufacturing. Complex components are built to a "near-net shape" using Industrial 3D printing (like DMLS) and are then transferred to a 5-axis CNC mill to machine hyper-critical mating surfaces, threads, and pristine surface finishes.</p>
+                </div>
+                <div class="future-card">
+                    <h3>Machining Next-Gen Materials</h3>
+                    <p>As commercial aviation pivots toward eco-efficiency, CNC infrastructure is evolving to handle advanced Ceramic Matrix Composites (CMCs) and new lithium-aluminum alloys. These materials allow aircraft to operate at hotter, more efficient engine temperatures while shaving thousands of pounds off total airframe weight.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section cta-section text-center">
+        <div class="container">
+            <h2>Partner with Certified Aerospace Machining Experts</h2>
+            <p>Navigating the stringent demands of aerospace manufacturing requires a partner with a proven track record of absolute precision, material traceability, and rigorous quality control. Whether you need a single structural prototype for wind-tunnel testing or a scalable production partner for AS9100-certified avionics enclosures, our network of advanced manufacturing centers delivers flight-ready components on time, every time.</p>
+            <div class="cta-group">
+                <a href="https://ms-machining.com/contact-us/" class="cta-btn" target="_blank" rel="noopener">Contact Our Engineering Team</a>
+                 <a href="https://ms-machining.com/" class="cta-btn" target="_blank" rel="noopener">MS Machining</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 omdshiny-art. All Rights Reserved. Engineered for Absolute Precision.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
